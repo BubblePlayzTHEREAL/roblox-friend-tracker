@@ -17,7 +17,7 @@ const CONFIG = {
     
     // Redirect URI - Update this to match your GitHub Pages URL
     // For GitHub Pages: https://USERNAME.github.io/REPO_NAME/callback.html
-    REDIRECT_URI: window.location + '/callback.html',
+    REDIRECT_URI: window.location.href + '/callback.html',
     
     // API endpoints
     API_BASE_URL: 'https://apis.roblox.com',

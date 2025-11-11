@@ -30,6 +30,9 @@ const CONFIG = {
     // Backend server configuration
     // Replace this with your backend server IP/URL (e.g., 'http://192.168.1.100:3001' or 'http://localhost:3001')
     BACKEND_URL: 'http://205.137.245.182:3001',
+    // URL to start OAuth via backend. Frontend should open a popup to this URL with query params
+    // Example: `${BACKEND_URL}/auth/start?client_id=...&redirect_uri=...`
+    AUTH_START_URL: 'http://205.137.245.182:3001/auth/start',
     // Set to true to enable WebSocket connection for real-time friend tracking
     ENABLE_BACKEND_TRACKING: false
 };

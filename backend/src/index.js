@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 const trackedRouter = require('./routes/tracked');
+const oauthRouter = require('./routes/oauth');
 const store = require('./store');
 const roblox = require('./services/roblox');
 const http = require('http');
@@ -12,12 +14,14 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
 const POLL_INTERVAL_SECONDS = process.env.POLL_INTERVAL_SECONDS ? parseInt(process.env.POLL_INTERVAL_SECONDS, 10) : 60;
 const VERBOSE = process.env.VERBOSE_LOG === 'true';
 
 app.use('/', trackedRouter);
+app.use('/auth', oauthRouter);
 
 // create an HTTP server so we can attach WebSocket server to the same port
 const server = http.createServer(app);

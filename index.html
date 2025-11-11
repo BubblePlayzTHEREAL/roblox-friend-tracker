@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Friend Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Roblox Friend Tracker</h1>
+            <p class="subtitle">Track your friends' online status in real-time</p>
+        </header>
+
+        <div id="auth-section" class="section">
+            <div class="auth-card">
+                <h2>Welcome!</h2>
+                <p>Connect your Roblox account to see which friends are online and playing games.</p>
+                <button id="login-btn" class="btn btn-primary">
+                    <span class="btn-icon">🔐</span>
+                    Login with Roblox
+                </button>
+            </div>
+        </div>
+
+        <div id="app-section" class="section hidden">
+            <div class="user-info">
+                <div class="user-profile">
+                    <img id="user-avatar" src="" alt="User Avatar" class="avatar">
+                    <div class="user-details">
+                        <h3 id="user-name">Loading...</h3>
+                        <p id="user-status" class="status-text"></p>
+                    </div>
+                </div>
+                <button id="logout-btn" class="btn btn-secondary">Logout</button>
+            </div>
+
+            <div class="controls">
+                <button id="refresh-btn" class="btn btn-refresh">
+                    <span class="btn-icon">🔄</span>
+                    Refresh Friends
+                </button>
+                <div class="filter-controls">
+                    <label>
+                        <input type="checkbox" id="filter-online" checked>
+                        Show Online Only
+                    </label>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-friends">0</div>
+                    <div class="stat-label">Total Friends</div>
+                </div>
+                <div class="stat-card online">
+                    <div class="stat-value" id="online-friends">0</div>
+                    <div class="stat-label">Online</div>
+                </div>
+                <div class="stat-card in-game">
+                    <div class="stat-value" id="in-game-friends">0</div>
+                    <div class="stat-label">In Game</div>
+                </div>
+            </div>
+
+            <div id="friends-list" class="friends-list">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading friends...</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Made with ❤️ for Roblox players | Not affiliated with Roblox Corporation</p>
+        </footer>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

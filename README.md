@@ -13,6 +13,7 @@ A beautiful, real-time friend tracker for Roblox that shows which of your friend
 - 🔄 **Auto-refresh** - Automatic updates every 30 seconds
 - 📱 **Responsive Design** - Works great on desktop and mobile
 - 🌙 **Dark Theme** - Easy on the eyes with a modern dark interface
+- 🔌 **Backend Integration** - Optional backend server for persistent friend tracking with WebSocket support
 
 ## 🚀 Demo
 
@@ -53,10 +54,15 @@ To use this application, you need:
 1. Open `config.js` in the repository
 2. Replace `YOUR_CLIENT_ID_HERE` with your actual Roblox OAuth2.0 Client ID
 3. Update the `REDIRECT_URI` if you're using a custom domain or different repository name
+4. **(Optional)** Configure backend server connection:
+   - Set `BACKEND_URL` to your backend server IP/URL (e.g., `http://192.168.1.100:3001`)
+   - Set `ENABLE_BACKEND_TRACKING` to `true` to enable backend features
 
 ```javascript
 const CONFIG = {
     CLIENT_ID: 'your-actual-client-id-here',
+    BACKEND_URL: 'http://localhost:3001',  // Change to your backend IP
+    ENABLE_BACKEND_TRACKING: false,        // Set to true to enable backend features
     // ... rest of config
 };
 ```
@@ -69,12 +75,50 @@ const CONFIG = {
 4. Click "Save"
 5. Your site will be published at `https://YOUR_USERNAME.github.io/roblox-friend-tracker/`
 
-### Step 5: Test the Application
+### Step 5: (Optional) Set Up Backend Server
+
+The backend server provides persistent friend tracking with WebSocket support for real-time notifications:
+
+1. **Navigate to the backend directory:**
+   ```bash
+   cd backend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure the backend:**
+   - Copy `.env.example` to `.env`
+   - Adjust settings if needed (default port is 3001)
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Start the backend server:**
+   ```bash
+   npm start
+   ```
+   The server will start on `http://localhost:3001`
+
+5. **Update frontend config:**
+   - In `config.js`, set `BACKEND_URL` to your backend server address
+   - Set `ENABLE_BACKEND_TRACKING` to `true`
+
+6. **Backend Features:**
+   - **REST API**: Track users and get friend change history
+   - **WebSocket**: Real-time notifications when friends are added/removed
+   - **Persistent storage**: Friend lists stored in JSON file
+   - **Automatic polling**: Checks for friend changes every 60 seconds (configurable)
+
+### Step 6: Test the Application
 
 1. Visit your GitHub Pages URL
 2. Click "Login with Roblox"
 3. Authorize the application
 4. View your friends and their online status!
+5. (Optional) If backend is enabled, check browser console for backend connection status
 
 ## ⚠️ Important Notes
 
@@ -114,6 +158,49 @@ This application works best on modern browsers:
 - Chrome/Edge (recommended)
 - Firefox
 - Safari 13+
+
+## 🖥️ Backend API Reference
+
+The optional backend server provides these endpoints:
+
+### REST API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/health` | Health check endpoint |
+| `GET` | `/tracked` | Get all tracked users |
+| `POST` | `/track` | Start tracking a user (body: `{userId, username}`) |
+| `DELETE` | `/track/:userId` | Stop tracking a user |
+| `GET` | `/friends/:userId` | Get friends for a tracked user |
+| `GET` | `/events/:userId` | Get friend change events for a tracked user |
+
+### WebSocket Messages
+
+The server sends real-time notifications via WebSocket:
+
+**Message Types:**
+- `tracked-list` - Current list of tracked users (sent on connection)
+- `friend-change` - Notification when friends are added/removed
+  ```json
+  {
+    "type": "friend-change",
+    "userId": 123456,
+    "username": "Username",
+    "when": "2024-01-01T00:00:00.000Z",
+    "added": [...],
+    "removed": [...]
+  }
+  ```
+
+**Client Messages:**
+- `get-tracked` - Request current tracked user list
+
+### Backend Configuration
+
+Configure the backend via `.env` file:
+- `PORT` - Server port (default: 3001)
+- `POLL_INTERVAL_SECONDS` - How often to check for friend changes (default: 60)
+- `VERBOSE_LOG` - Enable verbose logging (default: false)
 
 ## 🎨 Customization
 

@@ -21,3 +21,6 @@ npm-debug.log*
 # Build outputs (if added later)
 dist/
 build/
+
+# Demo file (for local testing only)
+demo.html

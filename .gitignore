@@ -22,5 +22,9 @@ npm-debug.log*
 dist/
 build/
 
+# Backend data and environment
+backend/data/tracked.json
+backend/.env
+
 # Demo file (for local testing only)
 demo.html

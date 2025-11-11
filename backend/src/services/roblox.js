@@ -24,7 +24,13 @@ async function getUserIdFromUsername(username) {
  * Get friends for a given userId
  */
 async function getFriendsForUserId(userId) {
-  const url = `https://friends.roblox.com/v1/users/${userId}/friends`;
+  // Validate userId is numeric to prevent injection attacks
+  const numericUserId = parseInt(userId, 10);
+  if (!Number.isFinite(numericUserId) || numericUserId <= 0) {
+    throw new Error('Invalid userId: must be a positive number');
+  }
+  
+  const url = `https://friends.roblox.com/v1/users/${numericUserId}/friends`;
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to fetch friends: ${response.statusText}`);
